@@ -6,7 +6,7 @@ let dumpChannel = null;
 
 client.on("ready", async () => {
 	dumpChannel = await client.channels.fetch(config.dumpChannel);
-	console.log(`listening for deleted messages in ${config.listenTo}`);
+	console.log(`Dumping deleted messages ${config.guildId} in #${dumpChannel.name}`);
 });
 
 client.on("messageDelete", (message) => {
