@@ -1,5 +1,5 @@
 {
-	"token": "<BOT TOKEN>",
-	"guildId": "<SERVER ID TO MONITOR>",
+	"token": "<BOT_TOKEN>",
+	"guildId": "<SERVER_ID_TO_MONITOR>",
 	"dumpChannel": "<CHANNEL_TO_DUMP_MESSAGES>"
 }
