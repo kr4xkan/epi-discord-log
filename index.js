@@ -9,7 +9,7 @@ client.on("ready", async () => {
 	console.log(`Dumping deleted messages ${config.guildId} in #${dumpChannel.name}`);
 });
 
-client.on("messageDelete", (message) => {
+client.on("messageDelete", async (message) => {
 	if (dumpChannel === null) return;
 	if (message.channel.type === "dm") return;
 	if (message.author.bot) return;
@@ -19,10 +19,24 @@ client.on("messageDelete", (message) => {
 	let author = message.author.username;
 	let channel = message.channel.name;
 
+    const fetchedLogs = await message.guild.fetchAuditLogs({
+		limit: 1,
+		type: "MESSAGE_DELETE",
+	});
+	const deletionLog = fetchedLogs.entries.first();
+
+    let deleted_by = "UNKNOWN";
+
+    if (deletionLog) {
+	    const { executor, target } = deletionLog;
+        deleted_by = executor.tag;
+    }
+
 	const embed = new Discord.MessageEmbed()
 		.setColor('#0099ff')
-		.setTitle(`Message from ${author} in #${channel} deleted`)
+		.setTitle(`${author} in #${channel}`)
 		.setDescription(content)
+        .addFields({ name: 'Deleted by', value: deleted_by, inline: false })
 		.setTimestamp()
 		.setFooter({ text: 'EpiLog' });
 
