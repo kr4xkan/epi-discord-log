@@ -15,6 +15,7 @@ client.on("messageDelete", async (message) => {
 	if (message.author.bot) return;
 	if (config.guildId !== message.guildId) return;
 	
+    console.log(message);
 	let content = message.content;
 	let author = message.author.username;
 	let channel = message.channel.name;
@@ -27,9 +28,8 @@ client.on("messageDelete", async (message) => {
 
     let deleted_by = "UNKNOWN";
 
-    if (deletionLog) {
-	    const { executor, target } = deletionLog;
-        deleted_by = executor.tag;
+    if (deletionLog && deletionLog.target.id == message.author.id) {
+        deleted_by = deletionLog.executor.tag;
     }
 
 	const embed = new Discord.MessageEmbed()
