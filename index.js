@@ -32,6 +32,9 @@ client.on("messageDelete", async (message) => {
         deleted_by = deletionLog.executor.tag;
     }
 
+    if (deleted_by === "UNKNOWN")
+        return;
+
 	const embed = new Discord.MessageEmbed()
 		.setColor('#0099ff')
 		.setTitle(`${author} in #${channel}`)
